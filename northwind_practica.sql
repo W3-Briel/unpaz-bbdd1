@@ -78,3 +78,41 @@ USE northwind; # seleccionando la base de datos 'northwind'
 #				LIMIT 7;
 
 #16. Seleccionar los 9 productos, con menos stock en almacén, que pertenezcan a la categoría 3, 5 y 8:
+#				SELECT * FROM `products`
+#				WHERE `CategoryID` in (3,5,8)
+#				ORDER BY `UnitsInStock` ASC
+#				LIMIT 9;
+
+#17. Seleccionar las órdenes de compra, realizadas por el empleado con código entre el 2 y 5, además de
+# los clientes con código que comienzan con las letras de la A hasta la G, del 31 de julio de cualquier
+# año:
+#				SELECT * FROM `orders`
+#				WHERE `EmployeeID` IN (2,5) OR ((substr(`CustomerID`,1,1) BETWEEN 'A' AND 'G')) 
+#				AND `OrderDate` LIKE '%07-31%';
+
+#18. Seleccionar las órdenes de compra, realizadas por el empleado con código 3, de cualquier año, pero
+# solo de los últimos 5 meses (agosto-diciembre):
+#				SELECT * FROM `orders`
+#				WHERE `EmployeeID` = 3 AND MONTH(`OrderDate`) BETWEEN 8 AND 12;
+
+#19. Seleccionar los detalles de las órdenes de compra, que tengan un monto de cantidad pedida entre 10 y 250:
+#				SELECT * FROM `order details`
+#				WHERE `OrderID` IN (
+#					SELECT `OrderID` FROM `orders`
+#					WHERE `Freight` BETWEEN 10 AND 250
+# 					);
+
+#20. Seleccionar los detalles de las órdenes de compras, cuyo monto del pedido estén entre 10 y 100:
+#				SELECT * FROM `order details`
+#				WHERE `Quantity` BETWEEN 10 AND 100;
+
+#21. Informar los diferentes países que se encuentra en la tabla Clientes
+#				SELECT DISTINCT `Country` FROM `customers`
+#				WHERE `Country` IS NOT NULL;
+
+#22. Mostrar los 15 productos más vendidos e incluyendo a los empates en el último registro (PD. El
+# operador TOP solo saca ‘N’ registros):
+#				SELECT * FROM (
+#					SELECT *, DENSE_RANK() OVER (ORDER BY `UnitsOnOrder` DESC) AS rnk
+#					FROM `products`
+#					) AS ranked WHERE rnk <= 15;
