@@ -116,3 +116,20 @@ USE northwind; # seleccionando la base de datos 'northwind'
 #					SELECT *, DENSE_RANK() OVER (ORDER BY `UnitsOnOrder` DESC) AS rnk
 #					FROM `products`
 #					) AS ranked WHERE rnk <= 15;
+
+
+## EJERCICIO DE SELECCION AVANZADOS (INNER JOIN, GROUP BY, HAVING Y WHERE)
+
+
+
+#23. Visualizar el máximo y mínimo precio de los productos por categoría, mostrar el nombre de la categoría:
+#				SELECT DISTINCT `CategoryID` AS `Category`,
+#				(SELECT MAX(`UnitPrice`) FROM `products` WHERE `CategoryID` = `Category`) AS max,
+#				(SELECT MIN(`UnitPrice`) FROM `products` WHERE `CategoryID` = `Category`) AS min
+# 				FROM `products`;
+ 
+ #24. Visualizar el máximo y mínimo precio de los productos por proveedor, mostrar el nombre de la compañía proveedora:
+#				SELECT DISTINCT `SupplierID` AS `Supplier`,
+#				(SELECT MAX(`UnitPrice`) FROM `products` WHERE `SupplierID` = `Supplier`) AS max,
+#				(SELECT MIN(`UnitPrice`) FROM `products` WHERE `SupplierID` = `Supplier`) AS min
+#				FROM `products`;
