@@ -133,3 +133,10 @@ USE northwind; # seleccionando la base de datos 'northwind'
 #				(SELECT MAX(`UnitPrice`) FROM `products` WHERE `SupplierID` = `Supplier`) AS max,
 #				(SELECT MIN(`UnitPrice`) FROM `products` WHERE `SupplierID` = `Supplier`) AS min
 #				FROM `products`;
+
+#25. Seleccionar las categorías que tengan más 5 productos. Mostrar el nombre de la categoría y el número de productos:
+
+#				SELECT `P`.`CategoryID`, COUNT(*) AS `cantidad`
+#				FROM (`products` AS `P` INNER JOIN `categories` AS `C` ON `P`.`CategoryID` = `C`.`CategoryID`)
+#				GROUP BY `P`.`CategoryID`
+#				HAVING COUNT(*) > 5;
