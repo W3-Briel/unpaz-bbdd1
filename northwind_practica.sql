@@ -140,3 +140,9 @@ USE northwind; # seleccionando la base de datos 'northwind'
 #				FROM (`products` AS `P` INNER JOIN `categories` AS `C` ON `P`.`CategoryID` = `C`.`CategoryID`)
 #				GROUP BY `P`.`CategoryID`
 #				HAVING COUNT(*) > 5;
+
+#26. Calcular cuántos clientes existen en cada País:
+#				SELECT `Country`,COUNT(*) FROM `customers`
+#				WHERE `Country` IS NOT NULL
+#				GROUP BY `Country`;
+
