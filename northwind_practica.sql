@@ -154,19 +154,75 @@ USE northwind; # seleccionando la base de datos 'northwind'
 
 #28. Calcular cuántos proveedores existen en cada Ciudad y País
 
-## SEGUIR ESTUDIANDO...
+#???????????????????????
 
 #29. Calcular el stock total de los productos por cada categoría. Mostrar el nombre de la categoría y el stock por categoría:
-#				SELECT `CategoryName`,SUM(`UnitsOnOrder`) AS `TotalStock`
+#				SELECT `CategoryName`,SUM(`UnitsInStock`) AS `TotalStock`
 #				FROM `products` AS `P` INNER JOIN `categories` AS `C` ON `C`.`CategoryID` = `P`.`CategoryID` 
 #				GROUP BY `CategoryName`;
 
-#30. Calcular el stock total de los productos por cada categoría.
+#30. Calcular el stock total de los productos por cada categoría:
 # Mostrar el nombre de la categoría y el stock por categoría. Solamente las categorías 2, 5 y 8:
+#				SELECT `CategoryName`,SUM(`UnitsInStock`) AS `totalStock`
+#				FROM (`products` AS `P`
+#				INNER JOIN `categories` AS `C` ON (`P`.`categoryID` = `C`.`categoryID`) AND NOT (`P`.`CategoryID` IN (2,5,8)))
+#				GROUP BY `CategoryName`;
 
-SELECT `CategoryName`,SUM(`UnitsInStock`) AS `TOTALSTOCK` FROM `products` AS `P`
-INNER JOIN `categories` AS `C` ON `P`.`CategoryID` = `C`.`CategoryID`
-WHERE `C`.`CategoryID` IN (2,5,8)
-GROUP BY `CategoryName`;
+#31. Obtener el nombre del cliente, nombre de proveedor, nombre del empleado y el nombre de los
+# productos que están en la orden 10250:
 
-### HAY UN ERROR??? PORQUE DEVUELVE ESOS VALORES(??
+#				SELECT `OrderID`,`O`.`CustomerID`,`O`.`EmployeeID`,(
+#					SELECT CONCAT(`LastName`,' ',`FirstName`) FROM `employees` AS `E`
+#    				WHERE `E`.`EmployeeID` = `O`.`EmployeeID`
+#				)AS `EmployeeName`,`C`.`ContactName` FROM `orders` AS `O`
+#				INNER JOIN `customers` AS `C`
+#				ON `O`.`CustomerID` = `C`.`CustomerID`
+#				WHERE `OrderID` = 10250;
+
+## capaz no es lo mas optimo??
+
+#32. Mostrar le número de ordenes realizadas de cada uno de los clientes por año:
+#				SELECT `ContactName`,YEAR(`OrderDate`) AS `año`, COUNT(*) AS `ordenes anuales`
+#				FROM `orders` AS `O` 
+#				INNER JOIN `customers` AS `C` ON `O`.`CustomerID` = `C`.`CustomerID`
+#				GROUP BY `ContactName`,`año`
+#				ORDER BY `ordenes anuales` DESC;
+
+#33. Mostrar el número de órdenes realizadas de cada uno de los empleados en cada año:
+#				SELECT CONCAT(`LastName`,' ',`FirstName`) AS `nombre`,YEAR(`OrderDate`) AS `año`, COUNT(*) AS `ordenes anuales`
+#				FROM `orders` AS `O` 
+#				INNER JOIN `employees` AS `E` ON `E`.`EmployeeID` = `O`.`EmployeeID`
+#				GROUP BY `nombre`,`año`
+#				ORDER BY `ordenes anuales` DESC;
+
+#34. Mostrar el número de órdenes realizadas de cada uno de los clientes por cada mes y año
+#				SELECT `ContactName`,CONCAT(YEAR(`OrderDate`),'-',MONTH(`OrderDate`)) AS `fecha`, COUNT(*) AS `ordenes`
+#				FROM `orders` AS `O` 
+#				INNER JOIN `customers` AS `C` ON `O`.`CustomerID` = `C`.`CustomerID`
+#				GROUP BY `ContactName`,`fecha`
+#				ORDER BY `fecha`,`ordenes` DESC;
+
+#35. Contar el número de órdenes que se han realizado por año y meses.
+#				SELECT CONCAT(YEAR(`OrderDate`),'-',MONTH(`OrderDate`)) AS `fecha`, COUNT(*) AS `ordenes por fecha`
+#				FROM `orders`
+#				GROUP BY `fecha`;
+
+#36. Seleccionar el nombre de la compañía del cliente, el código de la orden de compra, la fecha de la
+# orden de compra, código del producto, cantidad pedida del producto, nombre del producto, el
+# nombre de la compañía proveedora y la ciudad del proveedor:
+#				SELECT `CUS`.`CompanyName` AS `compañia cliente`,`ORD`.`OrderID`,`OrderDate`,
+#				`DETAILS`.`ProductID`,`Quantity`,`ProductName`,`SUP`.`CompanyName` AS `compañia proveedora`,`SUP`.`City`
+#				FROM (`customers` AS `CUS`
+#				INNER JOIN `orders` AS `ORD` ON `CUS`.`CustomerID` = `ORD`.`CustomerID`
+#				INNER JOIN `order details` AS `DETAILS` ON `ORD`.`OrderID` = `DETAILS`.`OrderID`
+#				INNER JOIN `products` AS `PRO` ON `PRO`.`ProductID` = `DETAILS`.`ProductID`
+#				INNER JOIN `suppliers` AS `SUP` ON `SUP`.`SupplierID` = `PRO`.`SupplierID`
+#				);
+
+#37. Seleccionar el nombre de la compañía del cliente, nombre del contacto, el código de la orden de
+# compra, la fecha de la orden de compra, código del producto, cantidad pedida del producto, nombre
+# del producto y el nombre de la compañía proveedora, usar Join. Solamente las compañías
+# proveedoras que comienzan con la letra de la A hasta la letra G, además la cantidad pedida del
+# producto debe estar entre 18 y 190.
+
+#???
