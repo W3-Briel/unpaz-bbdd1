@@ -146,3 +146,27 @@ USE northwind; # seleccionando la base de datos 'northwind'
 #				WHERE `Country` IS NOT NULL
 #				GROUP BY `Country`;
 
+#27. Calcular cuántos clientes existen en cada Ciudad:
+#				SELECT `City`,COUNT(*) AS `cantidad` FROM `customers`
+#				WHERE `City` IS NOT NULL
+#				GROUP BY `City`
+#				ORDER BY COUNT(*) DESC;
+
+#28. Calcular cuántos proveedores existen en cada Ciudad y País
+
+## SEGUIR ESTUDIANDO...
+
+#29. Calcular el stock total de los productos por cada categoría. Mostrar el nombre de la categoría y el stock por categoría:
+#				SELECT `CategoryName`,SUM(`UnitsOnOrder`) AS `TotalStock`
+#				FROM `products` AS `P` INNER JOIN `categories` AS `C` ON `C`.`CategoryID` = `P`.`CategoryID` 
+#				GROUP BY `CategoryName`;
+
+#30. Calcular el stock total de los productos por cada categoría.
+# Mostrar el nombre de la categoría y el stock por categoría. Solamente las categorías 2, 5 y 8:
+
+SELECT `CategoryName`,SUM(`UnitsInStock`) AS `TOTALSTOCK` FROM `products` AS `P`
+INNER JOIN `categories` AS `C` ON `P`.`CategoryID` = `C`.`CategoryID`
+WHERE `C`.`CategoryID` IN (2,5,8)
+GROUP BY `CategoryName`;
+
+### HAY UN ERROR??? PORQUE DEVUELVE ESOS VALORES(??
