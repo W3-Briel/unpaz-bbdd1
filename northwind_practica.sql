@@ -225,4 +225,36 @@ USE northwind; # seleccionando la base de datos 'northwind'
 # proveedoras que comienzan con la letra de la A hasta la letra G, además la cantidad pedida del
 # producto debe estar entre 18 y 190.
 
-#???
+
+/*
+SELECT
+	`CUS`.`CompanyName` AS `compañia cliente`,
+    `ORD`.`OrderID`,
+    `OrderDate`,
+	`DETAILS`.`ProductID`,
+    `Quantity`,
+    `ProductName`,
+    `SUP`.`CompanyName` AS `compañia proveedora`
+FROM
+	`customers` AS `CUS`
+INNER JOIN 
+	`orders` AS `ORD`
+    ON `CUS`.`CustomerID` = `ORD`.`CustomerID`
+INNER JOIN
+	`order details` AS `DETAILS`
+    ON `ORD`.`OrderID` = `DETAILS`.`OrderID`
+INNER JOIN 
+	`products` AS `PRO` 
+    ON `PRO`.`ProductID` = `DETAILS`.`ProductID`
+INNER JOIN
+	`suppliers` AS `SUP`
+    ON `SUP`.`SupplierID` = `PRO`.`SupplierID`
+WHERE
+	 (`Quantity` BETWEEN 18 AND 190)
+     AND `SUP`.`CompanyName` REGEXP '^[A-G]';
+*/
+# mysql soporta corchetes de rango [a-g]% en el operador LIKE
+# ^ significa que el patron se aplicara desde el incio de la cadena.
+
+
+
