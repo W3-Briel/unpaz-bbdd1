@@ -1,4 +1,5 @@
 USE northwind; # seleccionando la base de datos 'northwind'
+SET lc_time_names = 'es_AR';
 
 ## EJERCICIOS DE PRACTICA NORTHWIND - EJERCICOS DML (data manupulation lenguage)
 
@@ -179,7 +180,7 @@ USE northwind; # seleccionando la base de datos 'northwind'
 #				ON `O`.`CustomerID` = `C`.`CustomerID`
 #				WHERE `OrderID` = 10250;
 
-## capaz no es lo mas optimo??
+## capaz no es lo mas optimo?? -> esta mal la consulta, al profe le devuelve 4 rows!
 
 #32. Mostrar le número de ordenes realizadas de cada uno de los clientes por año:
 #				SELECT `ContactName`,YEAR(`OrderDate`) AS `año`, COUNT(*) AS `ordenes anuales`
@@ -255,6 +256,3 @@ WHERE
 */
 # mysql soporta corchetes de rango [a-g]% en el operador LIKE
 # ^ significa que el patron se aplicara desde el incio de la cadena.
-
-
-
