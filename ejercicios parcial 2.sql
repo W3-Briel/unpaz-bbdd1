@@ -305,4 +305,25 @@ FROM `products`
 WHERE
 	`UnitPrice` BETWEEN 20 AND 50;
 
+####################################################
+# ejercicios practica segundo parcial
 
+#Armar un reporte que incluya a los países y la cantidad de pedidos que se solicitaron despachar a cada país. Hay que considerar que en el listado 
+#se deben mostrar todos los países que se encuentran en la base de datos, y aquellos países a los que no solicitaron despachar pedidos deben figurar mostrando como cantidad cero (0). 
+
+# ¿Qué clientes compraron productos que son suministrados por proveedores que residen en la misma región que ellos? 
+#Mostrar ID, Nombre de la empresa, nombre del contacto y región. Incluir en el resultado aquellos cuya región es NULL si la región del proveedor también es NULL. Ordenar por región. 
+
+#Realizar un reporte de las ventas realizadas por los representantes de ventas (title: Sales Representative) durante el último año en que se registraron ventas en la base.
+#Los totales de ventas deberán estar agrupadas y mostradas por mes, en orden cronológico. Los empleados se deberán mostrar ordenados por apellido y luego por nombre.
+#Las columnas a mostrar son: Nombre, Apellido, Mes, VentasTotales.
+
+#¿Qué empleados no tienen como jefe al empleado cuyo apellido es Buchanan? Mostrar ID, y saludo, nombre y apellido concatenados.
+
+
+#Listar los productos (ID, Nombre, precio unitario, y nombre de su categoría).
+#Mostrar solamente aquellos productos cuyo precio unitario esté por encima del precio promedio de su categoría. Ordenar por nombre de categoría y nombre de producto.
+
+
+#Listar los proveedores junto con el producto más caro que suministran.
+#Mostrar ID del proveedor, nombre de la empresa, ID del producto, nombre del producto. Ordenar por nombre de categoría y nombre de producto
