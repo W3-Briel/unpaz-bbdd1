@@ -309,7 +309,40 @@ WHERE
 # ejercicios practica segundo parcial
 
 #Armar un reporte que incluya a los países y la cantidad de pedidos que se solicitaron despachar a cada país. Hay que considerar que en el listado 
-#se deben mostrar todos los países que se encuentran en la base de datos, y aquellos países a los que no solicitaron despachar pedidos deben figurar mostrando como cantidad cero (0). 
+#se deben mostrar todos los países que se encuentran en la base de datos, 
+#y aquellos países a los que no solicitaron despachar pedidos deben figurar mostrando como cantidad cero (0).
+
+#-> tener en cuenta, suppliers,employees,customers... ya que en la union de las columnas Country, tendriamos todos los paises de la base de datos. (no pense esto en el parcial :sob: )
+
+SELECT
+	`C`.`Country`,
+	COUNT(*) AS `cantidad`
+FROM
+	`customers` AS `C`
+GROUP BY
+	`C`.`Country`;
+
+SELECT
+	`CA`.`Country`,
+    IFNULL(`CC`.`cantidad`,0) AS `cantidad`
+FROM (
+	(SELECT `Country` FROM `suppliers`)
+	UNION
+	(SELECT `Country` FROM `employees`)
+	UNION
+	(SELECT `Country` FROM `customers`)
+    ) AS `CA`
+LEFT JOIN (
+	SELECT
+		`Country`,
+		COUNT(*) AS `cantidad`
+	FROM
+		`customers`
+	GROUP BY
+		`Country`) AS `CC`
+ON `CA`.`Country` = `CC`.`Country`
+WHERE
+	`CA`.`Country` IS NOT NULL;
 
 # ¿Qué clientes compraron productos que son suministrados por proveedores que residen en la misma región que ellos? 
 #Mostrar ID, Nombre de la empresa, nombre del contacto y región. Incluir en el resultado aquellos cuya región es NULL si la región del proveedor también es NULL. Ordenar por región. 
