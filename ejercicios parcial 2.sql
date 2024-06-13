@@ -315,17 +315,9 @@ WHERE
 #-> tener en cuenta, suppliers,employees,customers... ya que en la union de las columnas Country, tendriamos todos los paises de la base de datos. (no pense esto en el parcial :sob: )
 
 SELECT
-	`C`.`Country`,
-	COUNT(*) AS `cantidad`
-FROM
-	`customers` AS `C`
-GROUP BY
-	`C`.`Country`;
-
-SELECT
 	`CA`.`Country`,
     IFNULL(`CC`.`cantidad`,0) AS `cantidad`
-FROM (
+FROM ( /*selecciono todos los paises de la base de datos*/
 	(SELECT `Country` FROM `suppliers`)
 	UNION
 	(SELECT `Country` FROM `employees`)
@@ -340,12 +332,38 @@ LEFT JOIN (
 		`customers`
 	GROUP BY
 		`Country`) AS `CC`
-ON `CA`.`Country` = `CC`.`Country`
+	ON `CA`.`Country` = `CC`.`Country`
 WHERE
 	`CA`.`Country` IS NOT NULL;
 
 # ¿Qué clientes compraron productos que son suministrados por proveedores que residen en la misma región que ellos? 
-#Mostrar ID, Nombre de la empresa, nombre del contacto y región. Incluir en el resultado aquellos cuya región es NULL si la región del proveedor también es NULL. Ordenar por región. 
+#Mostrar ID, Nombre de la empresa, nombre del contacto y región.
+#Incluir en el resultado aquellos cuya región es NULL si la región del proveedor también es NULL. Ordenar por región. 
+
+# order details -> orders -> customers -> products -> suppliers
+
+SELECT DISTINCT #Mostrar ID, Nombre de la empresa, nombre del contacto y región.
+    `customers`.`CustomerID`,
+    `customers`.`CompanyName`,
+    `customers`.`ContactName`,
+    `customers`.`Country`
+FROM
+	`order details`
+INNER JOIN
+	`orders`
+	ON `orders`.`OrderID` = `order details`.`OrderID`
+INNER JOIN 
+	`customers`
+	ON `customers`.`CustomerID` = `orders`.`CustomerID`
+INNER JOIN
+	`products`
+    ON `products`.`ProductID` = `order details`.`ProductID`
+INNER JOIN
+	`suppliers`
+    ON `products`.`SupplierID` = `suppliers`.`SupplierID`
+WHERE
+	`suppliers`.`Country` = `customers`.`Country` # -> clientes y proveedores del mismo pais
+    OR `customers`.`Country` IS NULL AND `suppliers`.`Country` IS NULL # cliente con region null y su proveedor tambien... pero no hay ninguno en la base de datos.;
 
 #Realizar un reporte de las ventas realizadas por los representantes de ventas (title: Sales Representative) durante el último año en que se registraron ventas en la base.
 #Los totales de ventas deberán estar agrupadas y mostradas por mes, en orden cronológico. Los empleados se deberán mostrar ordenados por apellido y luego por nombre.
