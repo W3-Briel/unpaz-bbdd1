@@ -363,17 +363,61 @@ INNER JOIN
     ON `products`.`SupplierID` = `suppliers`.`SupplierID`
 WHERE
 	`suppliers`.`Country` = `customers`.`Country` # -> clientes y proveedores del mismo pais
-    OR `customers`.`Country` IS NULL AND `suppliers`.`Country` IS NULL # cliente con region null y su proveedor tambien... pero no hay ninguno en la base de datos.;
+    OR `customers`.`Country` IS NULL AND `suppliers`.`Country` IS NULL; # cliente con region null y su proveedor tambien... pero no hay ninguno en la base de datos.
 
-#Realizar un reporte de las ventas realizadas por los representantes de ventas (title: Sales Representative) durante el último año en que se registraron ventas en la base.
+#Realizar un reporte de las ventas realizadas por los representantes de ventas
+#(title: Sales Representative) durante el último año en que se registraron ventas en la base.
 #Los totales de ventas deberán estar agrupadas y mostradas por mes, en orden cronológico. Los empleados se deberán mostrar ordenados por apellido y luego por nombre.
 #Las columnas a mostrar son: Nombre, Apellido, Mes, VentasTotales.
+
+## respuesta!
+SELECT #Las columnas a mostrar son: Nombre, Apellido, Mes, VentasTotales.
+	`S`.`FirstName` AS `Nombre`,
+	`S`.`LastName` AS `Apellido`,
+    MONTHNAME(`O`.`OrderDate`) AS `Mes`,
+	COUNT(`S`.`EmployeeID`) AS `VentasTotales`
+FROM (
+	SELECT
+		`EmployeeID`,
+		`FirstName`,
+		`LastName`
+	FROM
+		`employees`
+	WHERE
+		`Title` = 'Sales Representative') AS `S` ##empleados "Sales Representative"
+INNER JOIN
+	`orders` AS `O`
+    ON `O`.`EmployeeID` = `S`.`EmployeeID`
+WHERE ## ultimo año que se registraron ventas.
+	YEAR(`OrderDate`) = (
+		SELECT
+			YEAR(MAX(`OrderDate`))
+		FROM
+			`orders`)
+GROUP BY
+	`S`.`FirstName`,
+    `S`.`LastName`,
+    MONTHNAME(`O`.`OrderDate`)
+ORDER BY  #Los empleados se deberán mostrar ordenados por apellido y luego por nombre
+	`S`.`LastName`,
+    `S`.`FirstName`;
+
+
+
 
 #¿Qué empleados no tienen como jefe al empleado cuyo apellido es Buchanan? Mostrar ID, y saludo, nombre y apellido concatenados.
 
 
+
+
+
+
+
 #Listar los productos (ID, Nombre, precio unitario, y nombre de su categoría).
 #Mostrar solamente aquellos productos cuyo precio unitario esté por encima del precio promedio de su categoría. Ordenar por nombre de categoría y nombre de producto.
+
+
+
 
 
 #Listar los proveedores junto con el producto más caro que suministran.
