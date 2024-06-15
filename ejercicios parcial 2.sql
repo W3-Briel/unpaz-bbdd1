@@ -407,9 +407,18 @@ ORDER BY  #Los empleados se deberán mostrar ordenados por apellido y luego por 
 
 #¿Qué empleados no tienen como jefe al empleado cuyo apellido es Buchanan? Mostrar ID, y saludo, nombre y apellido concatenados.
 
-
-
-
+SELECT
+	`E`.`EmployeeID` AS `ID`,
+    CONCAT(`E`.`FirstName`,' ',`E`.`LastName`) AS `NOMBRE`,
+    `E`.`TitleOfCourtesy` AS `SALUDO`
+FROM
+	`employees` AS `E`
+LEFT JOIN
+	`employees` AS `J`
+    ON `E`.`ReportsTo` = `J`.`EmployeeID`
+WHERE
+	`J`.`LastName` <> 'Buchanan' #no tienen como jefe al empleado cuyo apellido es Buchanan
+    OR `E`.`ReportsTo` IS NULL;
 
 
 
@@ -422,3 +431,7 @@ ORDER BY  #Los empleados se deberán mostrar ordenados por apellido y luego por 
 
 #Listar los proveedores junto con el producto más caro que suministran.
 #Mostrar ID del proveedor, nombre de la empresa, ID del producto, nombre del producto. Ordenar por nombre de categoría y nombre de producto
+
+
+
+#Armar un reporte de los pedidos despachados, agrupados por día de la semana en que fueron despachados (lunes, martes, etc.).
