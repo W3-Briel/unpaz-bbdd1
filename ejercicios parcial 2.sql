@@ -480,4 +480,14 @@ WHERE /*proveedores junto con el producto más caro que suministran*/
 ORDER BY /*Ordenar por nombre de categoría y nombre de producto*/
 	`categories`.`CategoryName` ASC, `products`.`ProductName`;
 
-#Armar un reporte de los pedidos despachados, agrupados por día de la semana en que fueron despachados (lunes, martes, etc.).
+#Armar un reporte de los pedidos despachados, agrupados por día de la semana en que fueron despachados (lunes, martes, etc.).c
+
+SELECT
+	DAYNAME(`OrderDate`) AS `DIA`, /*agrupados por día de la semana en que fueron despachados (lunes, martes, etc.)*/
+	COUNT(*) AS `CANTIDAD_DESPACHADO` /*reporte de los pedidos despachados*/
+FROM
+	`orders`
+GROUP BY
+	`DIA`, WEEKDAY(`OrderDate`)
+ORDER BY
+	WEEKDAY(`OrderDate`);
