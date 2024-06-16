@@ -418,20 +418,66 @@ LEFT JOIN
     ON `E`.`ReportsTo` = `J`.`EmployeeID`
 WHERE
 	`J`.`LastName` <> 'Buchanan' #no tienen como jefe al empleado cuyo apellido es Buchanan
-    OR `E`.`ReportsTo` IS NULL;
-
+    OR `E`.`ReportsTo` IS NULL /*podria pasar que no tenga jefe, por eso tenemos que evaluarlo de esta manera. ya que sino no aparecen los nulls*/;
 
 
 #Listar los productos (ID, Nombre, precio unitario, y nombre de su categoría).
-#Mostrar solamente aquellos productos cuyo precio unitario esté por encima del precio promedio de su categoría. Ordenar por nombre de categoría y nombre de producto.
+#Mostrar solamente aquellos productos cuyo precio unitario esté por encima del precio promedio de su categoría.
+#Ordenar por nombre de categoría y nombre de producto.
 
-
-
+SELECT /*ID, Nombre, precio unitario, y nombre de su categoría*/
+	`products`.`ProductID`,
+    `products`.`ProductName`,
+    `products`.`UnitPrice`,
+    `PROMEDIOS`.`CategoryName`
+FROM
+	`products`
+INNER JOIN ( /*promedio de las categorias*/
+	SELECT
+		`categories`.`CategoryID`,
+		`categories`.`CategoryName`,
+		FORMAT(AVG(`products`.`UnitPrice`),2) AS `PROMEDIO`
+	FROM
+		`categories`
+	INNER JOIN
+		`products`
+		ON `categories`.`CategoryID` = `products`.`CategoryID`
+	GROUP BY
+		`categories`.`CategoryID`,
+		`categories`.`CategoryName`) AS `PROMEDIOS`
+	ON `products`.`CategoryID` = `PROMEDIOS`.`CategoryID`
+WHERE /*mostrar solamente aquellos productos cuyo precio unitario esté por encima del precio promedio de su categoría*/
+	`products`.`UnitPrice` > `PROMEDIOS`.`PROMEDIO`
+ORDER BY /*Ordenar por nombre de categoría y nombre de producto*/
+	`PROMEDIOS`.`CategoryName` ASC, `products`.`ProductName` ASC;
 
 
 #Listar los proveedores junto con el producto más caro que suministran.
 #Mostrar ID del proveedor, nombre de la empresa, ID del producto, nombre del producto. Ordenar por nombre de categoría y nombre de producto
 
-
+SELECT /*Mostrar ID del proveedor, nombre de la empresa, ID del producto, nombre del producto*/
+	`suppliers`.`SupplierID`,
+    `suppliers`.`CompanyName`,
+    `products`.`ProductID`,
+    `products`.`ProductName`
+FROM
+	`suppliers`
+INNER JOIN /*proveedores con sus productos*/
+	`products`
+    ON `suppliers`.`SupplierID` = `products`.`SupplierID`
+INNER JOIN
+	`categories`
+    ON `products`.`CategoryID` = `categories`.`CategoryID`
+WHERE /*proveedores junto con el producto más caro que suministran*/
+	`products`.`UnitPrice` = (
+		SELECT
+			MAX(`UnitPrice`)
+		FROM
+			`products`
+		WHERE
+			`products`.`SupplierID` = `suppliers`.`SupplierID`
+    )
+ORDER BY /*Ordenar por nombre de categoría y nombre de producto*/
+	`categories`.`CategoryName` ASC, `products`.`ProductName`;
 
 #Armar un reporte de los pedidos despachados, agrupados por día de la semana en que fueron despachados (lunes, martes, etc.).
