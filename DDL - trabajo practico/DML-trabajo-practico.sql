@@ -10,8 +10,7 @@ SELECT
     `titulo`,
     `cantidad_votos`
 FROM
-	`pelicula`
-WHERE 
+	`pelicula`WHERE 
 	`cantidad_votos` > 4000
     AND ROUND(`promedio_votos`) = 6;
 
@@ -198,3 +197,64 @@ LIMIT 10;
 
 
 #### preguntas del recuperatorio
+
+#1) Entre qué años dirigió películas Steven Spielberg, cuántas películas dirigió, y cuanto recaudó. Indicar además en
+#cuántos casos lo recaudado superó el presupuesto de la película.
+#Resultado esperado (*):
+
+## Steven Spielberg
+SELECT
+	`persona_id`
+FROM
+	`persona`
+WHERE
+	`persona_nombre` = 'Steven Spielberg';
+
+## peliculas dirigidas por Steven Spielberg
+SELECT
+	`pelicula_id`
+FROM
+	`pelicula_equipo`
+WHERE 
+	`persona_id` = (
+		SELECT
+			`persona_id`
+		FROM
+			`persona`
+		WHERE
+			`persona_nombre` = 'Steven Spielberg')
+	 AND `trabajo` = 'Director'; /*27 peliculas dirigidas por Steven Spielberg*/
+
+#cuántas películas dirigió, y cuanto recaudó. Indicar además en
+#cuántos casos lo recaudado superó el presupuesto de la película
+SELECT
+	YEAR(MIN(`pelicula`.`fecha_estreno`)) AS `Inicio`,
+    YEAR(MAX(`pelicula`.`fecha_estreno`)) AS `Ultima`,
+    COUNT(`pelicula`.`pelicula_id`) AS `Cantidad`,
+    (SELECT
+		COUNT(*)
+	FROM
+		`pelicula_equipo`
+	INNER JOIN
+		`persona`
+        ON `persona`.`persona_id` = `pelicula_equipo`.`persona_id`
+	INNER JOIN `pelicula`
+		ON `pelicula`.`pelicula_id` = `pelicula_equipo`.`pelicula_id`
+	WHERE
+		`persona_nombre` = 'Steven Spielberg'
+		 AND `trabajo` = 'Director'
+         AND `pelicula`.`ingresos` > `pelicula`.`presupuesto`
+    ) AS `SuperoPresupuesto`,
+    FORMAT(SUM(`pelicula`.`ingresos`), 4) AS `Ingresos`
+FROM
+	`pelicula`
+INNER JOIN
+	`pelicula_equipo`
+    ON `pelicula_equipo`.`pelicula_id` = `pelicula`.`pelicula_id`
+INNER JOIN
+	`persona`
+    ON `persona`.`persona_id` = `pelicula_equipo`.`persona_id`
+WHERE
+	`persona_nombre` = 'Steven Spielberg'
+	 AND `trabajo` = 'Director'
+GROUP BY `SuperoPresupuesto`
