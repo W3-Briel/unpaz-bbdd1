@@ -146,7 +146,8 @@ CREATE TABLE `pelicula_elenco` (
     ,
     CONSTRAINT `FK_pelicula_elenco_pelicula` FOREIGN KEY (`pelicula_id`) REFERENCES `pelicula`(`pelicula_id`),
     CONSTRAINT `FK_pelicula_elenco_persona` FOREIGN KEY (`persona_id`) REFERENCES `persona`(`persona_id`),
-    CONSTRAINT `FK_pelicula_elenco_genero` FOREIGN KEY (`genero_id`) REFERENCES `genero`(`genero_id`),
+    CONSTRAINT `FK_pelicula_elenco_genero` FOREIGN KEY (`genero_id`) REFERENCES `genero`(`genero_id`)
+    ,
     CONSTRAINT `PK_pelicula_elenco` PRIMARY KEY (`elenco_orden`,`pelicula_id`,`genero_id`,`persona_id`)
 );
 
@@ -158,6 +159,7 @@ CREATE TABLE `pelicula_equipo` (
     ,
     CONSTRAINT `FK_pelicula_equipo_pelicula` FOREIGN KEY (`pelicula_id`) REFERENCES `pelicula`(`pelicula_id`),
     CONSTRAINT `FK_pelicula_equipo_persona` FOREIGN KEY (`persona_id`) REFERENCES `persona`(`persona_id`),
-    CONSTRAINT `FK_pelicula_equipo_especialidad` FOREIGN KEY (`especialidad_id`) REFERENCES `especialidad`(`especialidad_id`),
+    CONSTRAINT `FK_pelicula_equipo_especialidad` FOREIGN KEY (`especialidad_id`) REFERENCES `especialidad`(`especialidad_id`)
+    ,
     CONSTRAINT `PK_pelicula_equipo` PRIMARY KEY (`trabajo`,`pelicula_id`,`persona_id`,`especialidad_id`)
 );
