@@ -256,3 +256,31 @@ WHERE
 */
 # mysql soporta corchetes de rango [a-g]% en el operador LIKE
 # ^ significa que el patron se aplicara desde el incio de la cadena.
+
+
+#38. Seleccionar cuantos proveedores tengo en cada país, considerando solo a los nombres de los
+#proveedores que comienzan con la letra E hasta la letra P, además de mostrar solo los países donde
+#tenga más de 2 proveedores.
+
+SELECT
+	`SupplierID`,
+    `ContactName`,
+    `Country`
+FROM 
+	`suppliers`
+WHERE
+	`ContactName` REGEXP '^[E-P]' /*proveedores que arrancan de la E a P*/
+    AND `Country` IN (
+		SELECT
+			`Country` 
+		FROM (
+			SELECT /*paises con mas de dos proveedores*/
+				`Country`,
+				COUNT(*) AS `cantidad_proveedores`
+			FROM
+				`suppliers`
+			GROUP BY
+				`Country`
+			HAVING
+				COUNT(*) > 2) AS `C`
+		);
