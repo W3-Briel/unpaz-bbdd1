@@ -202,29 +202,6 @@ LIMIT 10;
 #cuántos casos lo recaudado superó el presupuesto de la película.
 #Resultado esperado (*):
 
-## Steven Spielberg
-SELECT
-	`persona_id`
-FROM
-	`persona`
-WHERE
-	`persona_nombre` = 'Steven Spielberg';
-
-## peliculas dirigidas por Steven Spielberg
-SELECT
-	`pelicula_id`
-FROM
-	`pelicula_equipo`
-WHERE 
-	`persona_id` = (
-		SELECT
-			`persona_id`
-		FROM
-			`persona`
-		WHERE
-			`persona_nombre` = 'Steven Spielberg')
-	 AND `trabajo` = 'Director'; /*27 peliculas dirigidas por Steven Spielberg*/
-
 #cuántas películas dirigió, y cuanto recaudó. Indicar además en
 #cuántos casos lo recaudado superó el presupuesto de la película
 SELECT
@@ -257,4 +234,39 @@ INNER JOIN
 WHERE
 	`persona_nombre` = 'Steven Spielberg'
 	 AND `trabajo` = 'Director'
-GROUP BY `SuperoPresupuesto`
+GROUP BY `SuperoPresupuesto`;
+
+#2) Listar las películas de la categoría Science Fiction, con ingresos mayores a 100.000.000, en las que no haya
+#participado Steven Spielberg, ni como equipo, ni como elenco. Mostrar ID, titulo, presupuesto, ingresos y ROI
+#(Return On Investment).
+
+
+SELECT
+	`pelicula`.`pelicula_id`,
+	`pelicula`.`titulo`,
+    `pelicula`.`presupuesto`,
+    `pelicula`.`ingresos` /*falta agregar ROI*/
+FROM 
+	`pelicula`
+INNER JOIN
+	`pelicula_categorias`
+	ON `pelicula_categorias`.`pelicula_id` = `pelicula`.`pelicula_id`
+INNER JOIN
+	`categoria`
+    ON `pelicula_categorias`.`categoria_id` = `categoria`.`categoria_id`
+WHERE
+	(`categoria`.`categoria_nombre` = 'Science Fiction'
+	AND `pelicula`.`ingresos` > 100000000)
+    AND `pelicula`.`pelicula_id` NOT IN (
+		SELECT DISTINCT
+			`pelicula_elenco`.`pelicula_id`
+		FROM 
+			`persona`
+		INNER JOIN
+			`pelicula_equipo`
+			ON `persona`.`persona_id` = `pelicula_equipo`.`persona_id`
+		INNER JOIN
+			`pelicula_elenco`
+			ON `pelicula_elenco`.`persona_id` = `persona`.`persona_id`
+		WHERE `persona`.`persona_nombre` = 'Steven Spielberg'
+    );
