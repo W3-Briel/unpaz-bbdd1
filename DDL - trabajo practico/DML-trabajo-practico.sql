@@ -244,8 +244,9 @@ GROUP BY `SuperoPresupuesto`;
 SELECT
 	`pelicula`.`pelicula_id`,
 	`pelicula`.`titulo`,
-    `pelicula`.`presupuesto`,
-    `pelicula`.`ingresos` /*falta agregar ROI*/
+    FORMAT(`pelicula`.`presupuesto`,2) AS `presupuesto`,
+    FORMAT(`pelicula`.`ingresos`,2) AS `ingresos`,
+    CONCAT(FORMAT((`pelicula`.`ingresos`/`pelicula`.`presupuesto`*100), 2), '%') AS `ROI`
 FROM 
 	`pelicula`
 INNER JOIN
@@ -258,15 +259,30 @@ WHERE
 	(`categoria`.`categoria_nombre` = 'Science Fiction'
 	AND `pelicula`.`ingresos` > 100000000)
     AND `pelicula`.`pelicula_id` NOT IN (
-		SELECT DISTINCT
-			`pelicula_elenco`.`pelicula_id`
-		FROM 
-			`persona`
-		INNER JOIN
-			`pelicula_equipo`
-			ON `persona`.`persona_id` = `pelicula_equipo`.`persona_id`
-		INNER JOIN
-			`pelicula_elenco`
-			ON `pelicula_elenco`.`persona_id` = `persona`.`persona_id`
-		WHERE `persona`.`persona_nombre` = 'Steven Spielberg'
-    );
+			(SELECT
+				`pelicula`.`pelicula_id`
+			FROM 
+				`pelicula`
+			INNER JOIN
+				`pelicula_equipo`
+				ON `pelicula_equipo`.`pelicula_id` = `pelicula`.`pelicula_id`
+			INNER JOIN
+				`persona`
+				ON `pelicula_equipo`.`persona_id` = `persona`.`persona_id`
+			WHERE
+				`persona`.`persona_nombre` ='Steven Spielberg')
+		UNION
+			(SELECT
+				`pelicula`.`pelicula_id`
+			FROM 
+				`pelicula`
+			INNER JOIN
+				`pelicula_elenco`
+				ON `pelicula_elenco`.`pelicula_id` = `pelicula`.`pelicula_id`
+			INNER JOIN
+				`persona`
+				ON `pelicula_elenco`.`persona_id` = `persona`.`persona_id`
+			WHERE
+				`persona`.`persona_nombre` ='Steven Spielberg')
+		) /*si o si. tenia que ser con subquerys*/
+ORDER BY ROUND((`pelicula`.`ingresos`/`pelicula`.`presupuesto`*100), 2) DESC;
