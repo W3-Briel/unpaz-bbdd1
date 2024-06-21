@@ -284,3 +284,43 @@ WHERE
 			HAVING
 				COUNT(*) > 2) AS `C`
 		);
+
+#39. Obtener el número de productos, por cada categoría. Mostrando el nombre de la categoría, el
+#nombre del producto, y el total de productos por categoría, solamente de las categorías 3, 5 y 8.
+#Ordenar por el nombre de la categoría.
+
+SELECT
+	`productName`,
+    `CA`.`CategoryName`,
+    `CA`.`Cantidad` AS `total en categoria`
+FROM
+	`products`
+INNER JOIN
+		(SELECT
+			COUNT(*) AS `cantidad`,
+			`categories`.`CategoryID`,
+			`categories`.`CategoryName`
+		FROM
+			`products`
+		INNER JOIN
+			`categories`
+			ON `categories`.`CategoryID` = `products`.`CategoryID`
+		GROUP BY
+			`CategoryID`,
+			`CategoryName`) AS `CA`
+	ON `CA`.`CategoryID` = `products`.`CategoryID`
+WHERE
+	`products`.`CategoryID` IN (3,5,8)
+ORDER BY
+	`CA`.`CategoryName`;
+    
+#42. Muestre los productos cuyo precio es mayor al promedio de precio de todos los productos 
+
+SELECT
+	`ProductID`,
+	`productName`,
+	`UnitPrice`
+FROM
+	`products`
+WHERE
+	`UnitPrice` > (SELECT AVG(`UnitPrice`) AS `promedio_total` FROM `Products`)
