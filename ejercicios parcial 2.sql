@@ -491,3 +491,27 @@ GROUP BY
 	`DIA`, WEEKDAY(`OrderDate`)
 ORDER BY
 	WEEKDAY(`OrderDate`);
+
+
+#Se desea armar parejas de representantes de ventas (Sales Representative) de Estados Unidos (USA). Considerar que no se deben repetir parejas. De cada empleado se desa mostrar concatenados el saludo, nombre y apellido.
+
+
+
+#Listar los proveedores junto con el producto más caro que suministran. Mostrar ID del proveedor, nombre de la empresa, ID del producto, nombre del producto. Ordenar por nombre de categoría y nombre de producto
+
+
+
+#Muestre los productos cuyo precio es mayor al promedio de precio de todos los productos de su misma categoría, y la longitud del nombre es menor a 15.
+
+
+#Armar un reporte que incluya a los países y la cantidad de pedidos que se solicitaron despachar a cada país. Hay que considerar que en el listado se deben mostrar todos los países que se encuentran en la base de datos, y aquellos países a los que no solicitaron despachar pedidos deben figurar mostrando como cantidad cero (0). 
+
+
+
+#Listar los productos (ID, Nombre, precio unitario, y nombre de su categoría). Mostrar solamente aquellos productos cuyo precio unitario esté por encima del precio promedio de su categoría. Ordenar por nombre de categoría y nombre de producto.
+
+
+
+#¿Qué clientes compraron productos que son suministrados por proveedores que residen en la misma región que ellos? Mostrar ID, Nombre de la empresa, nombre del contacto y región. Incluir en el resultado aquellos cuya región es NULL si la región del proveedor también es NULL. Ordenar por región. 
+
+
