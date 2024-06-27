@@ -515,3 +515,8 @@ ORDER BY
 #¿Qué clientes compraron productos que son suministrados por proveedores que residen en la misma región que ellos? Mostrar ID, Nombre de la empresa, nombre del contacto y región. Incluir en el resultado aquellos cuya región es NULL si la región del proveedor también es NULL. Ordenar por región. 
 
 
+SELECT `categories`.`CategoryName`,AVG(`products`.`UnitPrice`)
+FROM `categories`
+INNER JOIN `products`
+	 ON `products`.`CategoryID` = `categories`.`CategoryID`
+GROUP BY `categories`.`CategoryName`;
