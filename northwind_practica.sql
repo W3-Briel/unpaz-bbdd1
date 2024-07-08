@@ -5,11 +5,45 @@ SET lc_time_names = 'es_AR';
 
 #1. Seleccione todos los campos de la tabla cliente, ordenado por nombre del contacto de la compañía,
 # alfabéticamente:
-#				SELECT * FROM customers ORDER BY ContactName;
+/*
+SELECT
+	`CustomerID`,
+    `CompanyName`,
+    `ContactName`,
+    `ContactTitle`,
+    `Address`,
+    `City`,
+    `Region`,
+    `PostalCode`,
+    `Country`,
+    `Phone`,
+    `Fax`
+FROM
+	`customers`
+ORDER BY
+	`ContactName`;*/
 
 #2. Seleccione todos los campos de la tabla órdenes, ordenados por fecha de la orden,
 # descendentemente:
-#				SELECT * FROM orders ORDER BY OrderDate DESC;
+/*
+SELECT
+	`OrderID`,
+    `CustomerID`,
+    `EmployeeID`,
+    `OrderDate`,
+    `RequiredDate`,
+    `Shippeddate`,
+    `ShipVia`,
+    `ShipName`,
+    `ShipAddress`,
+    `ShipCity`,
+    `ShipRegion`,
+    `ShipPostalCode`,
+    `ShipCountry`
+FROM
+	`orders`
+ORDER BY 
+	`OrderDate` DESC;*/
 
 #3. Seleccione todos los campos de la tabla detalle de la orden, ordenada por cantidad pedida.
 # Ascendentemente: 
