@@ -47,21 +47,65 @@ ORDER BY
 
 #3. Seleccione todos los campos de la tabla detalle de la orden, ordenada por cantidad pedida.
 # Ascendentemente: 
-#				SELECT * FROM `order details` ORDER BY Quantity ASC;
+/*
+SELECT 
+	`OrderID`,
+    `ProductID`,
+    `UnitPrice`,
+    `Quantity`,
+    `Discount`
+FROM
+	`order details`
+ORDER BY 
+	`Quantity` ASC;*/
 
 #4. Obtener todos los productos, cuyo nombre comienzan con la letra P y tienen un precio unitario
 # comprendido entre 10 y 120:
-#				SELECT * FROM `products`
-#				WHERE substr(`ProductName`,1,1) = 'P' AND (10 < `UnitPrice` < 120);
-## se podria usar BETWEEN
 
+/*
+SELECT * FROM `products`
+WHERE 
+	`productName` LIKE 'P%'
+    AND #(10 < `UnitPrice` < 120);
+    `UnitPrice` BETWEEN 10 AND 120;*/
+    
 #5. Obtener todos los clientes de los países de: USA, Francia y UK:
-#				SELECT * FROM `customers`
-#				WHERE `Country` in ('USA','UK');
+/*
+SELECT
+	`CustomerID`,
+    `CompanyName`,
+    `ContactName`,
+    `ContactTitle`,
+    `Address`,
+    `City`,
+    `Region`,
+    `PostalCode`,
+    `Country`,
+    `Phone`,
+    `Fax`
+FROM
+	`customers`
+WHERE
+	`Country` in ('USA','UK');*/
 
 #6. Obtener todos los productos descontinuados y sin stock, que pertenecen a la categoría 1, 3, 4 y 7:
-#				SELECT * FROM `products`
-#				WHERE `CategoryID` in (1,3,4,7) AND (`Discontinued` = 1 AND `UnitsInStock` = 0);
+/*
+SELECT
+	`ProductID`,
+    `ProductName`,
+    `SupplierID`,
+    `CategoryID`,
+    `QuantityPerUnit`,
+    `UnitPrice`,
+    `UnitsInStock`,
+	`UnitsOnOrder`,
+	`ReorderLevel`,
+    `Discontinued`
+FROM 
+	`products`
+WHERE 
+	`CategoryID` in (1,3,4,7)
+    AND (`Discontinued` = 1 AND `UnitsInStock` = 0);*/
 
 #7. Obtener todas las órdenes hechas por el empleado con código: 2, 5 y 7 en el año 1996:
 #				SELECT * FROM `orders`
