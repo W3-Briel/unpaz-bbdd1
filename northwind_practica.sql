@@ -108,12 +108,45 @@ WHERE
     AND (`Discontinued` = 1 AND `UnitsInStock` = 0);*/
 
 #7. Obtener todas las órdenes hechas por el empleado con código: 2, 5 y 7 en el año 1996:
-#				SELECT * FROM `orders`
-#				WHERE `EmployeeID` in (2,5,7) AND substr(`OrderDate`,1,4) = 1996;
+/*
+SELECT
+	`OrderID`,
+    `CustomerID`,
+    `EmployeeID`,
+    `OrderDate`,
+    `RequiredDate`,
+    `Shippeddate`,
+    `ShipVia`,
+    `ShipName`,
+    `ShipAddress`,
+    `ShipCity`,
+    `ShipRegion`,
+    `ShipPostalCode`,
+    `ShipCountry`
+FROM 
+	`orders`
+WHERE
+	`EmployeeID` in (2,5,7)
+    AND  YEAR(`OrderDate`) = 1996;*/
 
 #8. Seleccionar todos los clientes que cuenten con FAX:
-#				SELECT * FROM `customers`
-#				WHERE `Fax` IS NOT NULL;
+/*
+SELECT
+	`CustomerID`,
+    `CompanyName`,
+    `ContactName`,
+    `ContactTitle`,
+    `Address`,
+    `City`,
+    `Region`,
+    `PostalCode`,
+    `Country`,
+    `Phone`,
+    `Fax`
+FROM
+	`customers`
+WHERE 
+	`Fax` IS NOT NULL;*/
 
 #9. Seleccionar todos los clientes que no cuenten con FAX, del País de USA:
 #				SELECT * FROM `customers`
