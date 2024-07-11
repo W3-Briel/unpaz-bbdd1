@@ -149,25 +149,80 @@ WHERE
 	`Fax` IS NOT NULL;*/
 
 #9. Seleccionar todos los clientes que no cuenten con FAX, del País de USA:
-#				SELECT * FROM `customers`
-#				WHERE `Fax` IS NOT NULL AND `Country` = 'USA';
+/*
+SELECT
+	`CustomerID`,
+    `CompanyName`,
+    `ContactName`,
+    `ContactTitle`,
+    `Address`,
+    `City`,
+    `Region`,
+    `PostalCode`,
+    `Country`,
+    `Phone`,
+    `Fax`
+FROM
+	`customers`
+WHERE
+	`Fax` IS NOT NULL
+	AND `Country` = 'USA';*/
 
 #10. Seleccionar todos los empleados que cuentan con un jefe:
-#				SELECT * FROM `employees`
-#				WHERE `ReportsTo` IS NOT NULL;
+/*
+SELECT
+	`EmployeeID`,
+    `LastName`,
+    `FirstName`,
+    `Title`,
+    `TitleOfCourtesy`,
+    `BirthDate`,
+    `HireDate`,
+    `Address`,
+    `City`,
+    `Region`,
+    `PostalCode`,
+    `Country`,
+    `HomePhone`,
+    `Extension`,
+    `Photo`,
+    `Notes`,
+    `ReportsTo`,
+    `PhotoPath`,
+    `Salary`
+FROM
+	`employees`
+WHERE
+	`ReportsTo` IS NOT NULL;*/
 
 #11. Seleccionar todos los campos del cliente, cuya compañía empiecen con letra O hasta la S y
 # pertenezcan al país de USA, ordenarlos por la dirección:
-#				SELECT * FROM `customers`
-#				WHERE `Country` = 'USA' AND substr(`CompanyName`,1,1) BETWEEN 'O' AND 'S'
-#				ORDER BY `Address`;
-#se podria usar IN ('O','P','Q','R','S')
+/*
+SELECT
+	`CustomerID`,
+    `CompanyName`,
+    `ContactName`,
+    `ContactTitle`,
+    `Address`,
+    `City`,
+    `Region`,
+    `PostalCode`,
+    `Country`,
+    `Phone`,
+    `Fax`
+FROM 
+	`customers`
+WHERE
+	`Country` = 'USA'
+    #AND substr(`CompanyName`,1,1) BETWEEN 'O' AND 'S'
+    AND `CompanyName` REGEXP '^[O-S]'
+ORDER BY`Address`;*/
 
 #12. Seleccionar todos los campos del cliente, cuya compañía empiecen con las letras de la B a la G, y
 # pertenezcan al país de UK, ordenarlos por nombre de la compañía:
-#				SELECT * FROM `customers`
-#				WHERE (substr(`CompanyName`,1,1) BETWEEN 'B' AND 'G') AND `Country` = 'UK'
-#				ORDER BY `CompanyName`;
+SELECT * FROM `customers`
+WHERE (substr(`CompanyName`,1,1) BETWEEN 'B' AND 'G') AND `Country` = 'UK'
+ORDER BY `CompanyName`;
 
 #13. Seleccionar los productos vigentes cuyos precios unitarios están entre 35 y 250, sin stock en almacén,
 # pertenecientes a las categorías 1, 3, 4, 7 y 8, que son distribuidos por los proveedores, 2, 4, 6, 7, 8 y 9:
