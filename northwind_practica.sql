@@ -220,9 +220,26 @@ ORDER BY`Address`;*/
 
 #12. Seleccionar todos los campos del cliente, cuya compañía empiecen con las letras de la B a la G, y
 # pertenezcan al país de UK, ordenarlos por nombre de la compañía:
-SELECT * FROM `customers`
-WHERE (substr(`CompanyName`,1,1) BETWEEN 'B' AND 'G') AND `Country` = 'UK'
-ORDER BY `CompanyName`;
+/*
+SELECT
+	`CustomerID`,
+    `CompanyName`,
+    `ContactName`,
+    `ContactTitle`,
+    `Address`,
+    `City`,
+    `Region`,
+    `PostalCode`,
+    `Country`,
+    `Phone`,
+    `Fax`
+FROM
+	`customers`
+WHERE 
+	(`CompanyName` REGEXP '^[B-G]')
+    AND `Country` = 'UK'
+ORDER BY
+	`CompanyName`;*/
 
 #13. Seleccionar los productos vigentes cuyos precios unitarios están entre 35 y 250, sin stock en almacén,
 # pertenecientes a las categorías 1, 3, 4, 7 y 8, que son distribuidos por los proveedores, 2, 4, 6, 7, 8 y 9:
