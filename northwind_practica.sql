@@ -243,9 +243,26 @@ ORDER BY
 
 #13. Seleccionar los productos vigentes cuyos precios unitarios están entre 35 y 250, sin stock en almacén,
 # pertenecientes a las categorías 1, 3, 4, 7 y 8, que son distribuidos por los proveedores, 2, 4, 6, 7, 8 y 9:
-#				SELECT * FROM `products`
-#				WHERE (`CategoryID` in (1,3,4,7,8)) AND (`SupplierID` in (2,4,6,7,8,9)) AND (`UnitPrice` BETWEEN 35 AND 250);
-## investigar porque con (35 < `UnitPrice` < 250) da diferentes resultado. ¿podria ser el tipo de dato decimal? o porque no se aceptan este tipo de comparaciones?
+/*
+SELECT
+	`ProductID`,
+    `ProductName`,
+    `SupplierID`,
+    `CategoryID`,
+    `QuantityPerUnit`,
+    `UnitPrice`,
+    `UnitsInStock`,
+	`UnitsOnOrder`,
+	`ReorderLevel`,
+    `Discontinued`
+FROM
+	`products`
+WHERE
+	`Discontinued` = 0
+	AND (`UnitPrice` >= 35 AND `UnitPrice` < 250)
+    AND (`UnitsInStock` = 0) # con cero unidades.
+    AND (`CategoryID` IN (1,3,4,7,8))
+    AND (`SupplierID` IN (2,4,6,7,8,9));*/
 
 #14. Seleccionar todos los campos de los productos descontinuados, que pertenezcan a los proveedores
 # con códigos: 1, 3, 7, 8 y 9, que tengan stock en almacén, y al mismo tiempo que sus precios unitarios
