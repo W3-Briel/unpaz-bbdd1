@@ -267,16 +267,48 @@ WHERE
 #14. Seleccionar todos los campos de los productos descontinuados, que pertenezcan a los proveedores
 # con códigos: 1, 3, 7, 8 y 9, que tengan stock en almacén, y al mismo tiempo que sus precios unitarios
 # estén entre 39 y 190, ordenados por código de proveedores y precio unitario de manera ascendente:
-#				SELECT * FROM `products`
-#				WHERE `SupplierID` in (1,3,7,8,9) AND `Discontinued` = 1 AND `UnitsInStock` > 0 /*mayor a cero, por si de alguna manera se ingresa un numero negativo*/
-#					AND `UnitPrice` BETWEEN 39 AND 190
-#				ORDER BY `SupplierID`,`UnitPrice`;
+/*
+SELECT
+	`ProductID`,
+    `ProductName`,
+    `SupplierID`,
+    `CategoryID`,
+    `QuantityPerUnit`,
+    `UnitPrice`,
+    `UnitsInStock`,
+	`UnitsOnOrder`,
+	`ReorderLevel`,
+    `Discontinued`
+FROM
+	`products`
+WHERE
+	`SupplierID` in (1,3,7,8,9)
+    AND `Discontinued` = 1
+    AND `UnitsInStock` > 0 #mayor a cero, por si de alguna manera se ingresa un numero negativo
+	AND `UnitPrice` BETWEEN 39 AND 190
+ORDER BY
+	`SupplierID`,`UnitPrice`;*/
 
 #15. Seleccionar los 7 productos con precio más caro, que cuenten con stock en almacén:
-#				SELECT * FROM `products`
-#				WHERE `UnitsInStock` > 0
-#				ORDER BY `UnitPrice` DESC
-#				LIMIT 7;
+/*
+SELECT 
+	`ProductID`,
+    `ProductName`,
+    `SupplierID`,
+    `CategoryID`,
+    `QuantityPerUnit`,
+    `UnitPrice`,
+    `UnitsInStock`,
+	`UnitsOnOrder`,
+	`ReorderLevel`,
+    `Discontinued`
+FROM
+	`products`
+WHERE
+	`UnitsInStock` > 0
+ORDER BY 
+	`UnitPrice` DESC
+LIMIT 7;*/
 
 #16. Seleccionar los 9 productos, con menos stock en almacén, que pertenezcan a la categoría 3, 5 y 8:
 #				SELECT * FROM `products`
