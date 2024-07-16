@@ -334,21 +334,68 @@ LIMIT 9;*/ ## y con empates?? ######################
 #17. Seleccionar las órdenes de compra, realizadas por el empleado con código entre el 2 y 5, además de
 # los clientes con código que comienzan con las letras de la A hasta la G, del 31 de julio de cualquier
 # año:
-#				SELECT * FROM `orders`
-#				WHERE `EmployeeID` IN (2,5) OR ((substr(`CustomerID`,1,1) BETWEEN 'A' AND 'G')) 
-#				AND `OrderDate` LIKE '%07-31%';
+/*
+SELECT
+	`OrderID`,
+    `CustomerID`,
+    `EmployeeID`,
+    `OrderDate`,
+    `RequiredDate`,
+    `Shippeddate`,
+    `ShipVia`,
+    `ShipName`,
+    `ShipAddress`,
+    `ShipCity`,
+    `ShipRegion`,
+    `ShipPostalCode`,
+    `ShipCountry`
+FROM
+	`orders`
+WHERE
+	`EmployeeID` IN (2,5) OR ((substr(`CustomerID`,1,1) BETWEEN 'A' AND 'G')) 
+AND `OrderDate` LIKE '%07-31%';*/
 
 #18. Seleccionar las órdenes de compra, realizadas por el empleado con código 3, de cualquier año, pero
 # solo de los últimos 5 meses (agosto-diciembre):
-#				SELECT * FROM `orders`
-#				WHERE `EmployeeID` = 3 AND MONTH(`OrderDate`) BETWEEN 8 AND 12;
+/*
+SELECT
+	`OrderID`,
+    `CustomerID`,
+    `EmployeeID`,
+    `OrderDate`,
+    `RequiredDate`,
+    `Shippeddate`,
+    `ShipVia`,
+    `ShipName`,
+    `ShipAddress`,
+    `ShipCity`,
+    `ShipRegion`,
+    `ShipPostalCode`,
+    `ShipCountry`
+FROM
+	`orders`
+WHERE
+	`EmployeeID` = 3 AND MONTH(`OrderDate`) BETWEEN 8 AND 12;*/
 
 #19. Seleccionar los detalles de las órdenes de compra, que tengan un monto de cantidad pedida entre 10 y 250:
-#				SELECT * FROM `order details`
-#				WHERE `OrderID` IN (
-#					SELECT `OrderID` FROM `orders`
-#					WHERE `Freight` BETWEEN 10 AND 250
-# 					);
+/*
+SELECT
+	`OrderID`,
+    `ProductID`,
+    `UnitPrice`,
+    `Quantity`,
+    `Discount`
+FROM 
+	`order details`
+WHERE
+	`OrderID` IN
+	(	SELECT
+			`OrderID`
+		FROM 
+			`orders`
+		WHERE
+			`Freight` BETWEEN 10 AND 250
+	);*/
 
 #20. Seleccionar los detalles de las órdenes de compras, cuyo monto del pedido estén entre 10 y 100:
 #				SELECT * FROM `order details`
