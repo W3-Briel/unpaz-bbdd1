@@ -311,10 +311,25 @@ ORDER BY
 LIMIT 7;*/
 
 #16. Seleccionar los 9 productos, con menos stock en almacén, que pertenezcan a la categoría 3, 5 y 8:
-#				SELECT * FROM `products`
-#				WHERE `CategoryID` in (3,5,8)
-#				ORDER BY `UnitsInStock` ASC
-#				LIMIT 9;
+/*
+SELECT 
+	`ProductID`,
+    `ProductName`,
+    `SupplierID`,
+    `CategoryID`,
+    `QuantityPerUnit`,
+    `UnitPrice`,
+    `UnitsInStock`,
+	`UnitsOnOrder`,
+	`ReorderLevel`,
+    `Discontinued`
+FROM
+	`products`
+WHERE 
+	`CategoryID` in (3,5,8)
+ORDER BY 
+	`UnitsInStock` ASC
+LIMIT 9;*/ ## y con empates?? ######################
 
 #17. Seleccionar las órdenes de compra, realizadas por el empleado con código entre el 2 y 5, además de
 # los clientes con código que comienzan con las letras de la A hasta la G, del 31 de julio de cualquier
