@@ -398,12 +398,26 @@ WHERE
 	);*/
 
 #20. Seleccionar los detalles de las órdenes de compras, cuyo monto del pedido estén entre 10 y 100:
-#				SELECT * FROM `order details`
-#				WHERE `Quantity` BETWEEN 10 AND 100;
+/*
+SELECT
+	`OrderID`,
+    `ProductID`,
+    `UnitPrice`,
+    `Quantity`,
+    `Discount`
+FROM
+	`order details`
+WHERE
+	`Quantity` BETWEEN 10 AND 100;*/
 
 #21. Informar los diferentes países que se encuentra en la tabla Clientes
-#				SELECT DISTINCT `Country` FROM `customers`
-#				WHERE `Country` IS NOT NULL;
+/*
+SELECT DISTINCT
+	`Country`
+FROM
+	`customers`
+WHERE
+	`Country` IS NOT NULL;*/
 
 #22. Mostrar los 15 productos más vendidos e incluyendo a los empates en el último registro (PD. El
 # operador TOP solo saca ‘N’ registros):
