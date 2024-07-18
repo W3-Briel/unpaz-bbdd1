@@ -91,21 +91,57 @@ WHERE
 #6) Seleccionar los 3 productos con menor precio, de las categorías 3, 5 y 8
 ## 3 productos por categoria??? -> no pide empates
 /*
-(SELECT *
-FROM `products`
-WHERE `CategoryID` = 3 
+(SELECT 
+	`ProductID`,
+    `ProductName`,
+    `SupplierID`,
+    `CategoryID`,
+    `QuantityPerUnit`,
+    `UnitPrice`,
+    `UnitsInStock`,
+	`UnitsOnOrder`,
+	`ReorderLevel`,
+    `Discontinued`
+FROM
+	`products`
+WHERE
+	`CategoryID` = 3 
 ORDER BY `UnitPrice` ASC
 LIMIT 3)
 UNION
-(SELECT *
-FROM `products`
-WHERE `CategoryID` = 5
+(SELECT
+	`ProductID`,
+    `ProductName`,
+    `SupplierID`,
+    `CategoryID`,
+    `QuantityPerUnit`,
+    `UnitPrice`,
+    `UnitsInStock`,
+	`UnitsOnOrder`,
+	`ReorderLevel`,
+    `Discontinued`
+FROM
+	`products`
+WHERE
+	`CategoryID` = 5
 ORDER BY `UnitPrice` ASC
 LIMIT 3)
 UNION
-(SELECT *
-FROM `products`
-WHERE `CategoryID` = 8
+(SELECT
+	`ProductID`,
+    `ProductName`,
+    `SupplierID`,
+    `CategoryID`,
+    `QuantityPerUnit`,
+    `UnitPrice`,
+    `UnitsInStock`,
+	`UnitsOnOrder`,
+	`ReorderLevel`,
+    `Discontinued`
+FROM
+	`products`
+WHERE
+	`CategoryID` = 8
 ORDER BY `UnitPrice` ASC
 LIMIT 3)
 */
@@ -133,7 +169,7 @@ WHERE
 #Seleccionar las órdenes realizadas por los empleados con código entre el 4 y 7, que tengan como 
 #destino ciudades (ShipCity) que comienzan con las letras "O" o "L", y que hayan sido gestionadas el 
 #día 15 de abril (no importa el año). 
-
+/*
 SELECT
 	`OrderID`,
     `CustomerID`,
@@ -156,24 +192,24 @@ WHERE
         OR `ShipCity` LIKE 'L%')
 	AND (
 		MONTH(`ShippedDate`) = 4 
-        AND DAY(`ShippedDate`) = 15);
+        AND DAY(`ShippedDate`) = 15);*/
 
 #2) 
 #Listar los diferentes (sin repetidos) países que se encuentran en la tabla de clientes, ordenados 
 #alfabéticamente.
-
+/*
 SELECT DISTINCT
 	`Country`
 FROM 
 	`customers`
 ORDER BY
-	`Country` ASC;
+	`Country` ASC;*/
 
 
 #3)
 #Armar un listado que incluya el nombre, apellido, puesto y apellido de su jefe (el listado debe incluir 
 #a todos los empleados). 
-
+/*
 SELECT 
 	`E`.`FirstName`,
     `E`.`LastName`,
@@ -183,7 +219,7 @@ FROM
 	`employees` AS `E`
 LEFT JOIN 
 	`employees` AS `J`
-	ON `J`.`EmployeeID` = `E`.`ReportsTo`;
+	ON `J`.`EmployeeID` = `E`.`ReportsTo`;*/
 
 ## resultados esperados:
 /*
